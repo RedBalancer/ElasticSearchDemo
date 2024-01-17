@@ -1,0 +1,13 @@
+module: ElasticSeach-Client
+server:
+  port: 9090
+
+spring:
+  jpa:
+    database-platform: org.hibernate
+
+
+es:
+  host: localhost
+  port: 9201
+  schema: http
