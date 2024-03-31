@@ -1,0 +1,49 @@
+module: ElasticSeach-Client
+server:
+  port: 8082
+
+spring:
+  application:
+    name: es-grpc-server
+  datasource:
+#    type: org.apache.tomcat.jdbc.pool.DataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/webservice?serverTimezone=Asia/Shanghai&useUnicode=true&character_set_server=utf8mb4&useSSL=false
+    username: chzhang
+    password: Unix@11!
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: update
+    properties:
+      show-sql: true
+      format-sql: true
+# not start APP server (tomcat)
+  main:
+    web-application-type: none
+es:
+  host: localhost
+  port: 9201
+  schema: http
+
+#xx:
+#  yy:
+#    zz:
+#      condition: true
+grpc:
+  server:
+    host: localhost
+    port: 9092
+
+    reflection:
+      enable: true
+
+#logging:
+#  level:
+#    root: debug
+
+#disable ES health check
+management:
+  health:
+    elasticsearch:
+      enabled: false

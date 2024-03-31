@@ -1,0 +1,37 @@
+server:
+  port: 8090
+
+es:
+  host: localhost
+  port: 9201
+  schema: http
+
+
+management:
+  health:
+    elasticsearch:
+      enabled: false
+
+spring:
+  datasource:
+    #    type: org.apache.tomcat.jdbc.pool.DataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/webservice?serverTimezone=Asia/Shanghai&useUnicode=true&character_set_server=utf8mb4
+    username: chzhang
+    password: Unix@11!
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: create
+    properties:
+      show-sql: true
+      format-sql: false
+
+grpc:
+  server:
+    host: localhost
+    port: 9090
+
+logging:
+  level:
+    root: debug

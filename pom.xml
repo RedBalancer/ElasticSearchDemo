@@ -3,11 +3,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <packaging>pom</packaging>
-  <modules>
-    <module>es-grpc-api</module>
-    <module>elastic-grpc-api</module>
-  </modules>
+  <packaging>jar</packaging>
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
@@ -25,18 +21,27 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
+    <sonarscan.exclusions>
+      src/main/xx/yy/zz/esdemo/db/*/**,
+      src/main/xx/yy/zz/esdemo/config/*,
+      src/main/xx/yy/zz/esdemo/ESSearchSpringApplication
+    </sonarscan.exclusions>
+    <junit.verson>5.9.3</junit.verson>
+    <esclient.version>8.11.1</esclient.version>
+    <protoc.version>3.25.1</protoc.version>
+    <lombok.version>1.18.22</lombok.version>
   </properties>
 
   <dependencies>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
-      <version>5.9.3</version>
+      <version>${junit.verson}</version>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
-      <version>5.9.3</version>
+      <version>${junit.verson}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -76,11 +81,16 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-validation</artifactId>
     </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
 <!--    https://docs.spring.io/spring-data/elasticsearch/reference/elasticsearch/versions.html-->
     <dependency>
       <groupId>co.elastic.clients</groupId>
       <artifactId>elasticsearch-java</artifactId>
-      <version>8.11.1</version>
+      <version>${esclient.version}</version>
     </dependency>
 <!--    ES使用时间作为查询条件-->
     <dependency>
@@ -91,8 +101,59 @@
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
-      <version>1.18.22</version>
+      <version>${lombok.version}</version>
     </dependency>
+
+<!--    DB entity ID annotation-->
+    <dependency>
+      <groupId>jakarta.persistence</groupId>
+      <artifactId>jakarta.persistence-api</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.hibernate.orm</groupId>
+      <artifactId>hibernate-core</artifactId>
+    </dependency>
+
+    <!-- string check null -->
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>3.14.0</version>
+    </dependency>
+<!--DB required-->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jdbc</artifactId>
+      <version>3.1.2</version>
+    </dependency>
+
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>8.0.28</version>
+    </dependency>
+<!--API  definition  -->
+    <dependency>
+      <groupId>xx.yy.zz</groupId>
+      <artifactId>es-grpc-api</artifactId>
+      <version>1.1-SNAPSHOT</version>
+    </dependency>
+
+    <!--  GRPC server-->
+    <dependency>
+      <groupId>net.devh</groupId>
+      <artifactId>grpc-server-spring-boot-starter</artifactId>
+      <version>2.15.0.RELEASE</version>
+    </dependency>
+
+<!-- FIX issue: Exception in thread "grpc-default-executor-2" java.lang.NoSuchMethodError: 'boolean com.google.protobuf.GeneratedMessageV3.isStringEmpty(java.lang.Object)'-->
+    <dependency>
+      <groupId>com.google.protobuf</groupId>
+      <artifactId>protobuf-java</artifactId>
+      <version>${protoc.version}</version>
+    </dependency>
+
   </dependencies>
 
   <build>

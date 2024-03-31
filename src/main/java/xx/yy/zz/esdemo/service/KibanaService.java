@@ -2,7 +2,7 @@ package xx.yy.zz.esdemo.service;
 
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
-import co.elastic.clients.elasticsearch._types.query_dsl.MatchPhraseQuery;
+import co.elastic.clients.elasticsearch._types.query_dsl.MatchQuery;
 import co.elastic.clients.elasticsearch.core.SearchRequest;
 import co.elastic.clients.elasticsearch.core.SearchResponse;
 import co.elastic.clients.json.JsonData;
@@ -32,7 +32,7 @@ public class KibanaService {
 
     public String findTraceId(HashMap<String, String> keys, String index, String dateTime) {
         BoolQuery.Builder booleanQuery = new BoolQuery.Builder();
-        keys.forEach((k,v)->booleanQuery.must(MatchPhraseQuery.of(m->m.field(k).query(v))._toQuery()));
+        keys.forEach((k,v)->booleanQuery.must(MatchQuery.of(m->m.field(k).query(v))._toQuery()));
 
         SearchRequest.Builder searchBuilder = new SearchRequest.Builder()
                 .index(index)

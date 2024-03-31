@@ -1,7 +1,0 @@
-server:
-  port: 8090
-
-es:
-  host: localhost
-  port: 9201
-  schema: http
